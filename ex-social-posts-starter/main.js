@@ -19,52 +19,108 @@
 const allPosts = [
     {
         id: 1,
-        name: 'Phil Mangione',
+        authorName: 'Phil Mangione',
         authorPic: `https://unsplash.it/300/300?image=${getRndInteger(1, 100)}`,
-        date: formatDate(new Date(2021, 6, 25)),
-        textPost: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
-        imagePost: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
+        datePost: formatDate(new Date(2021, 6, 25)),
+        postText: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
+        postImage: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
         likesNumber: 80
     },
     {
         id: 2,
-        name: 'Sofia Perlari',
+        authorName: 'Sofia Perlari',
         authorPic: `https://unsplash.it/300/300?image=${getRndInteger(1, 100)}`,
-        date: formatDate(new Date(2019, 3, 10)),
-        textPost: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
-        imagePost: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
+        datePost: formatDate(new Date(2019, 3, 10)),
+        postText: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
+        postImage: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
         likesNumber: 120
     },
     {
         id: 3,
-        name: 'Italo Calvino',
+        authorName: 'Italo Calvino',
         authorPic: null,
-        date: formatDate(new Date(2020, 4, 13)),
-        textPost: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
-        imagePost: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
+        datePost: formatDate(new Date(2020, 4, 13)),
+        postText: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
+        postImage: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
         likesNumber: 210
     },
     {
         id: 4,
-        name: 'Margherita Hack',
+        authorName: 'Margherita Hack',
         authorPic: `https://unsplash.it/300/300?image=${getRndInteger(1, 100)}`,
-        date: formatDate(new Date(2022, 2, 23)),
-        textPost: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
-        imagePost: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
+        datePost: formatDate(new Date(2022, 2, 23)),
+        postText: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
+        postImage: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
         likesNumber: 90
     },
     {
         id: 5,
-        name: 'Giovanni Verga',
+        authorName: 'Giovanni Verga',
         authorPic: null,
-        date: formatDate(new Date(2022, 2, 23)),
-        textPost: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
-        imagePost: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
+        datePost: formatDate(new Date(2022, 2, 23)),
+        postText: `Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`,
+        postImage: `https://unsplash.it/600/300?image=${getRndInteger(1, 100)}`,
         likesNumber: 110
     },
 ];
 
 console.log('allPost: ', allPosts);
+
+// Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed
+    
+    // Scorro l'array con i post e per ognuno:
+    for (let i = 0; i < allPosts.length; i++) {
+        const thisPost = allPosts[i];
+
+        // Invoco la funzione drawSinglePost() per stampare il post popolato con i dati contenuti nel singolo oggetto
+        drawSinglePost(thisPost); 
+    }
+
+    // Stampo il post popolato con i dati contenuti nel singolo oggetto
+    function drawSinglePost(singlePost) {
+        // Creo una variabile per ciascuna chiave dell'oggetto
+        const {postId, authorName, authorPic, datePost, postText, postImage, likesNumber} = singlePost;
+
+        // Seleziono l'elemento in cui voglio stampare il template dei singoli post
+        const postsList = document.querySelector('.posts-list');
+
+        // Creo una variabile con il template del singolo post
+        const templatePost = `
+        <div class="post">
+            <div class="post__header">
+                <div class="post-meta">                    
+                    <div class="post-meta__icon">
+                        <img class="profile-pic" src="${authorPic}" alt="${authorName}">                    
+                    </div>
+                    <div class="post-meta__data">
+                        <div class="post-meta__author">${authorName}</div>
+                        <div class="post-meta__time">${datePost}</div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="post__text">${postText}</div>
+            <div class="post__image">
+                <img src="${postImage}" alt="">
+            </div>
+            <div class="post__footer">
+                <div class="likes js-likes">
+                    <div class="likes__cta">
+                        <a class="like-button  js-like-button" href="#" data-postid="${postId}">
+                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>
+                        </a>
+                    </div>
+                    <div class="likes__counter">
+                        Piace a <b id="like-counter-${postId}" class="js-likes-counter">${likesNumber}</b> persone
+                    </div>
+                </div> 
+            </div>            
+        </div>
+        `
+        // Stampo nell'elemento .posts-list i singoli post concatenandoli
+        postsList.innerHTML += templatePost;
+    }
+
 
 
 // ---------------
