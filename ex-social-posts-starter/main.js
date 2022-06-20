@@ -18,7 +18,7 @@
 // Creiamo il nostro array di oggetti che rappresentano ciascun post
 const allPosts = [
     {
-        id: 1,
+        postId: 1,
         authorName: 'Phil Mangione',
         authorPic: `https://unsplash.it/300/300?image=${getRndInteger(1, 100)}`,
         datePost: formatDate(new Date(2021, 6, 25)),
@@ -27,7 +27,7 @@ const allPosts = [
         likesNumber: 80
     },
     {
-        id: 2,
+        postId: 2,
         authorName: 'Sofia Perlari',
         authorPic: `https://unsplash.it/300/300?image=${getRndInteger(1, 100)}`,
         datePost: formatDate(new Date(2019, 3, 10)),
@@ -36,7 +36,7 @@ const allPosts = [
         likesNumber: 120
     },
     {
-        id: 3,
+        postId: 3,
         authorName: 'Italo Calvino',
         authorPic: null,
         datePost: formatDate(new Date(2020, 4, 13)),
@@ -45,7 +45,7 @@ const allPosts = [
         likesNumber: 210
     },
     {
-        id: 4,
+        postId: 4,
         authorName: 'Margherita Hack',
         authorPic: `https://unsplash.it/300/300?image=${getRndInteger(1, 100)}`,
         datePost: formatDate(new Date(2022, 2, 23)),
@@ -54,7 +54,7 @@ const allPosts = [
         likesNumber: 90
     },
     {
-        id: 5,
+        postId: 5,
         authorName: 'Giovanni Verga',
         authorPic: null,
         datePost: formatDate(new Date(2022, 2, 23)),
@@ -64,25 +64,50 @@ const allPosts = [
     },
 ];
 
-console.log('allPost: ', allPosts);
+// Invoca funzione per la stampa dei singoli post
+drawAllPosts();
+
+
+// ---------------------------------
+// EVENT LISTENERS
+// ---------------------------------
+
+const allLikesBtns = document.querySelectorAll('.js-like-button');
+const allLikesNumbers = document.querySelectorAll('.js-likes-counter');
+for (let i = 0; i < allLikesBtns.length; i++) {
+    const thisLikeBtn = allLikesBtns[i];
+    // Ad ogni click del button:
+    thisLikeBtn.addEventListener('click', function(event) {
+        // Evitiamo il comportamento di default del browser
+        event.preventDefault();
+        // Aggiungo all'elemento cliccato la classe 'like-button--liked'
+        this.classList.add('like-button--liked');
+        // Prendo l'elemento html che ha il numero relativo a questo btn
+        let relatedLikesNumber = allLikesNumbers[i];
+        // Incremento di 1 il numero di like
+        relatedLikesNumber.innerHTML++;
+    })
+}
+
+// ---------------------------------
+// FUNCTION DOM
+// ---------------------------------
+
 
 // Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed
-    
+function drawAllPosts() {
+
+    // Seleziono l'elemento in cui voglio stampare il template dei singoli post
+    const postsList = document.querySelector('.posts-list');
+
     // Scorro l'array con i post e per ognuno:
     for (let i = 0; i < allPosts.length; i++) {
         const thisPost = allPosts[i];
 
-        // Invoco la funzione drawSinglePost() per stampare il post popolato con i dati contenuti nel singolo oggetto
-        drawSinglePost(thisPost); 
-    }
-
-    // Stampo il post popolato con i dati contenuti nel singolo oggetto
-    function drawSinglePost(singlePost) {
+        
         // Creo una variabile per ciascuna chiave dell'oggetto
-        const {postId, authorName, authorPic, datePost, postText, postImage, likesNumber} = singlePost;
+        const {postId, authorName, authorPic, datePost, postText, postImage, likesNumber} = thisPost;
 
-        // Seleziono l'elemento in cui voglio stampare il template dei singoli post
-        const postsList = document.querySelector('.posts-list');
 
         // Creo una variabile con il template del singolo post
         const templatePost = `
@@ -117,15 +142,16 @@ console.log('allPost: ', allPosts);
             </div>            
         </div>
         `
-        // Stampo nell'elemento .posts-list i singoli post concatenandoli
-        postsList.innerHTML += templatePost;
+
+        // Stampo il post popolato con i dati contenuti nel singolo oggetto
+        postsList.innerHTML += templatePost; 
     }
+}
 
 
-
-// ---------------
-// FUNCTION
-// ---------------
+// -------------------
+// FUNCTION UTILITY
+// -------------------
 
 
 // Genera un numero random in un range tra min e max (inclusi entrambi):
