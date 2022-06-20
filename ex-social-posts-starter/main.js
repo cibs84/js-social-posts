@@ -90,7 +90,7 @@ for (let i = 0; i < allLikesBtns.length; i++) {
 }
 
 // ---------------------------------
-// FUNCTION DOM
+//  DOM'S FUNCTIONS
 // ---------------------------------
 
 
@@ -150,7 +150,7 @@ function drawAllPosts() {
 
 
 // -------------------
-// FUNCTION UTILITY
+// UTILITY FUNCTIONS
 // -------------------
 
 
