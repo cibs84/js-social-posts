@@ -139,7 +139,7 @@ function drawAllPosts(postsArray) {
                         ${(authorPic === null) ? getInitialsAuthorName(authorName) : getAuthorPic(authorPic, authorName)}                    
                     </div>
                     <div class="post-meta__data">
-                        <div class="post-meta__author">Phil Mangione</div>
+                        <div class="post-meta__author">${authorName}</div>
                         <div class="post-meta__time">${datePost}</div>
                     </div>                    
                 </div>
